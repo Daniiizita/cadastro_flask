@@ -22,7 +22,7 @@ class Pessoa (db.Model):
         self.email = email
         
 
-@app.route("/index")
+@app.route("/")
 def index():
     return render_template("index.html")
 
@@ -49,6 +49,28 @@ def cadastro():
 def lista():
     pessoas = Pessoa.query.all()
     return render_template("lista.html", pessoas=pessoas)
+
+@app.route("/editar/<int:id>", methods=['GET', 'POST'])
+def editar(id):
+    pessoa = Pessoa.query.get(id)
+    if request.method == 'POST':
+        # Atualizar os dados da pessoa com base no formulário
+        pessoa.nome = request.form.get("nome")
+        pessoa.telefone = request.form.get("telefone")
+        pessoa.cpf = request.form.get("cpf")
+        pessoa.email = request.form.get("email")
+        db.session.commit()
+        return redirect(url_for('lista'))
+    return render_template("editar.html", pessoa=pessoa)
+
+@app.route("/excluir/<int:id>", methods=['GET', 'POST'])
+def excluir(id):
+    pessoa = Pessoa.query.get(id)
+    if request.method == 'POST':
+        db.session.delete(pessoa)
+        db.session.commit()
+        return redirect(url_for('lista'))
+    return render_template("excluir.html", pessoa=pessoa)
             
 if __name__ == '__main__':
     with app.app_context():
