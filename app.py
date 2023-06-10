@@ -1,54 +1,57 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
+app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
-# Configurações do banco de dados
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'tasks_flask'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+db = SQLAlchemy(app)
 
+class Pessoa (db.Model):
+    __tablename__= 'cliente'
+    _id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    nome = db.Column(db.String)
+    telefone = db.Column(db.String)
+    cpf = db.Column(db.String)
+    email = db.Column(db.String)
+    
+    def __init__ (self, nome, telefone, cpf, email):
+        self.nome = nome
+        self.telefone = telefone
+        self.cpf = cpf
+        self.email = email
+        
 
-
-mysql = MySQL(app)
-
-tasks = []
-
-with app.app_context():
-    cursor = mysql.connection.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS tasks (
-                       id INT AUTO_INCREMENT PRIMARY KEY,
-                       task VARCHAR(255) NOT NULL
-                   )''')
-    mysql.connection.commit()
-    cursor.close()
-
-@app.route('/')
+@app.route("/index")
 def index():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM tasks")
-    tasks = cursor.fetchall()
-    cursor.close()
-    return render_template('index.html', tasks=tasks)
+    return render_template("index.html")
 
+@app.route("/cadastrar")
+def cadastrar():
+    return render_template("cadastro.html")
 
-@app.route('/add', methods=['POST'])
-def add():
-    task = request.form.get('task')
-    cursor = mysql.connection.cursor()
-    cursor.execute("INSERT INTO tasks (task) VALUES (%s)", (task,))
-    mysql.connection.commit()
-    cursor.close()
-    return redirect('/')
+@app.route("/cadastro", methods = ['GET', 'POST'])
+def cadastro():
+    if request.method == "POST":
+        nome = request.form.get("nome")
+        telefone = request.form.get("telefone")
+        cpf = request.form.get("cpf")
+        email = request.form.get("email")
+        
+        if nome and telefone and cpf and email:
+            p = Pessoa(nome, telefone, cpf, email)
+            db.session.add(p)
+            db.session.commit()
+    
+    return redirect(url_for("index"))
 
-
-@app.teardown_appcontext
-def close_db_connection(exception=None):
-    mysql.connection.rollback()
-    mysql.connection.close()
-
+@app.route("/lista")
+def lista():
+    pessoas = Pessoa.query.all()
+    return render_template("lista.html", pessoas=pessoas)
+            
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 

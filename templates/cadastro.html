@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Cadastro</title>
+</head>
+<body>
+    <h1>Página de Cadastro</h1>
+    <hr>
+    <form action="{{url_for ('cadastro')}}" method="POST">
+        <table>
+            <tr>
+                <td>Nome</td>
+                <td><input type="text" name = "nome"></td>
+            </tr>
+            <tr>
+                <td>Telefone</td>
+                <td><input type="text" name = "telefone"></td>
+            </tr>
+            <tr>
+                <td>CPF</td>
+                <td><input type="text" name = "cpf"></td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td><input type="text" name = "email"></td>
+            </tr>
+        </table><br>
+        <input type="submit" value="Cadastrar">
+    </form>
+</body>
+</html>
