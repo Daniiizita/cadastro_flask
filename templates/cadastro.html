@@ -6,9 +6,11 @@
     <title>Página de Cadastro</title>
 </head>
 <body>
+    {% extends 'base.html' %}
+{% block content %}
     <h1>Página de Cadastro</h1>
     <hr>
-    <form action="{{url_for ('cadastro')}}" method="POST">
+    <form action="{{ url_for('cadastro') }}" method="POST">
         <table>
             <tr>
                 <td>Nome</td>
@@ -27,7 +29,8 @@
                 <td><input type="text" name = "email"></td>
             </tr>
         </table><br>
-        <input type="submit" value="Cadastrar">
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
+    {% endblock %}
 </body>
 </html>

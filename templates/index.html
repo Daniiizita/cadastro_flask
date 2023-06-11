@@ -6,9 +6,13 @@
     <title>Página Inicial</title>
 </head>
 <body>
+    {% extends 'base.html' %}
+
+{% block content %}
     <h1>Cadastro de Clientes</h1>
     <hr>
-    <a href="{{ url_for('cadastrar') }}">Cadastrar Novo Cliente</a><br><br>
-    <a href="{{ url_for('lista') }}">Ver Lista de Clientes</a>
+    <a href="{{ url_for('cadastrar') }}" class="btn btn-primary">Cadastrar Novo Cliente</a><br><br>
+    <a href="{{ url_for('lista') }}" class="btn btn-primary">Ver Lista de Clientes</a>
+    {% endblock %}
 </body>
 </html>

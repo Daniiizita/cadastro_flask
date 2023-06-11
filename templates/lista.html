@@ -6,6 +6,9 @@
     <title>Lista de Clientes</title>
 </head>
 <body>
+    {% extends 'base.html' %}
+
+{% block content %}
     <h1>Lista de Clientes</h1>
     <hr>
     <table>
@@ -28,14 +31,15 @@
                 <td>{{ pessoa.cpf }}</td>
                 <td>{{ pessoa.email }}</td>
                 <td>
-                    <a href="{{ url_for('editar', id=pessoa._id) }}">Editar</a>
-                    <a href="{{ url_for('excluir', id=pessoa._id) }}">Excluir</a>
+                    <a href="{{ url_for('editar', id=pessoa._id) }}" class="btn btn-primary">Editar</a>
+                    <a href="{{ url_for('excluir', id=pessoa._id) }}" class="btn btn-danger">Excluir</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <hr>
-    <a href="{{ url_for('index') }}">Voltar para a página inicial</a>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Voltar para a página inicial</a>
+    {% endblock %}
 </body>
 </html>
