@@ -14,7 +14,7 @@ Este é um sistema de cadastro de usuários utilizando o framework Flask, com fu
 Antes de executar o projeto, certifique-se de ter instalado em seu ambiente de desenvolvimento:
 - Python (versão 3 ou superior)
 - Flask (instalado via `pip install flask`)
-- Banco de dados de sua escolha (por exemplo, SQLite, MySQL, PostgreSQL)
+- Banco de dados SQLite
 
 ## Executando o projeto
 
@@ -34,10 +34,6 @@ Siga as etapas abaixo para executar o projeto em seu ambiente local:
 6. Abra o navegador e acesse o seguinte endereço:
    - `http://127.0.0.1:5000/`
 7. Agora você pode cadastrar novos usuários, visualizar a lista de usuários cadastrados, editar os dados de um usuário existente e excluir usuários.
-
-## Contribuição
-
-Se você quiser contribuir para este projeto, fique à vontade para fazer um fork e enviar suas sugestões e melhorias por meio de um pull request.
 
 ## Autor
 
