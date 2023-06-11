@@ -39,11 +39,9 @@ Siga as etapas abaixo para executar o projeto em seu ambiente local:
 
 Se você quiser contribuir para este projeto, fique à vontade para fazer um fork e enviar suas sugestões e melhorias por meio de um pull request.
 
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
-
 ## Autor
 
-[Danielle de Paula]
+Danielle de Paula
+- GitHub: [Daniiizita](https://github.com/Daniiizita)
+
 
